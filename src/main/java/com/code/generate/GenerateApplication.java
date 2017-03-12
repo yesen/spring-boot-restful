@@ -4,14 +4,14 @@ import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by sen.ye on 2017/3/2.
  */
-@SpringBootApplication(scanBasePackages = "com.code.generate")
+//@SpringBootApplication(scanBasePackages = "com.code.generate")
 //@ComponentScan(basePackages = "com.code.generate")
-//@Configuration
+@Configuration
 public class GenerateApplication implements CommandLineRunner {
 
     @Autowired
