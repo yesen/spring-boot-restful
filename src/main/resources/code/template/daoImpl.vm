@@ -1,0 +1,28 @@
+package com.${rootModel}.dao.${modelName}.impl;
+
+import com.jessen.core.mybatis.AbstractBaseDao;
+import com.${rootModel}.dao.${modelName}.${className}Dao;
+import com.${rootModel}.entity.${modelName}.${className}Entity;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/**
+* Created by sen.ye on ${rootTime}.
+*/
+@Repository
+public class ${className}DaoImpl extends AbstractBaseDao<${className}Entity,Long> implements ${className}Dao {
+
+@Autowired
+private SqlSessionTemplate sqlSessionTemplate;
+
+public ${className}DaoImpl() {
+super(${className}DaoImpl.class.getName());
+}
+
+@Override
+protected SqlSessionTemplate getSqlSessionTemplate() {
+return sqlSessionTemplate;
+}
+
+}

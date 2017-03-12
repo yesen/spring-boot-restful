@@ -1,0 +1,12 @@
+package com.${rootModel}.service.${modelName};
+
+import com.jessen.core.mybatis.BaseDao;
+import com.${rootModel}.domain.${modelName}.${className}Domain;
+import com.${rootModel}.entity.${modelName}.${className}Entity;
+
+/**
+* Created by sen.ye on ${rootTime}.
+*/
+public interface ${className}Service extends BaseService<${className}Domain,${className}Entity,Long>{
+
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    #set ($key=1)
+    #set ($table=${tableName})
+    #set ($entity="com."+${rootModel}+".entity."+${modelName}+"."+${className}+"Entity")
+    #set ($namespace="com."+${rootModel}+".dao."+${modelName}+".impl."+${className}+"DaoImpl")
+    #set ($resultMap=${lowerClassName}+"ResultMap")
+    #set ($sqlId="Base_Column_List")
+    #foreach($row in $col_list)
+        #if(${row.column_key} == "PRI")
+            #set ($key=${row.column_name})
+        #end
+    #end
+<mapper namespace="${namespace}">
+    <resultMap id="${resultMap}" type="${entity}">
+        #foreach($row in $col_list)
+            #if(${row.column_key} == 'PRI')
+                <id property="${row.col_field}" column="${row.column_name}"/>
+            #end
+            <result property="${row.col_field}" column="${row.column_name}"/>
+        #end
+    </resultMap>
+
+    <sql id="$sqlId">
+        `$key`
+        #foreach($row in $col_list)
+            #if(${row.column_key} != "PRI")
+                ,`${row.column_name}`
+            #end
+        #end
+    </sql>
+
+    <select id="findAll" resultMap="${resultMap}">
+        select
+        <include refid="$sqlId"/>
+        from
+        ${table}
+    </select>
+
+    <select id="find" resultMap="${resultMap}" parameterType="Long">
+        select
+        <include refid="$sqlId"/>
+        from
+        ${tableName}
+        where
+        #foreach($row in $col_list)
+            #if(${row.column_key} == "PRI")
+                `$key` = #{${row.col_field}}
+            #end
+        #end
+    </select>
+
+    <insert id="create" parameterType="${entity}">
+        insert into ${table}(
+        `$key`
+        #foreach($row in $col_list)
+            #if(${row.column_key} != "PRI")
+                <if test="${row.col_field} != null">
+                    ,`${row.column_name}`
+                </if>
+            #end
+        #end
+        ) values(
+        #foreach($row in $col_list)
+            #if(${row.column_key} == "PRI")
+                ,#{${row.col_field}}
+            #end
+            #if(${row.column_key} != "PRI")
+                <if test="${row.col_field} != null">
+                    ,#{${row.col_field}}
+                </if>
+            #end
+        #end
+        )
+    </insert>
+
+    <update id="update" parameterType="${entity}">
+        update $table
+        <set>
+            #foreach($row in $col_list)
+                #if(${row.column_key} != "PRI")
+                    <if test="${row.col_field} != null">
+                        ,#{${row.col_field}}
+                    </if>
+                #end
+            #end
+        </set>
+        where
+        #foreach($row in $col_list)
+            #if(${row.column_key} == "PRI")
+                `$key` = #{${row.col_field}}
+            #end
+        #end
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from $table
+        where
+        #foreach($row in $col_list)
+            #if(${row.column_key} == "PRI")
+                `$key` = #{${row.col_field}}
+            #end
+        #end
+    </delete>
+
+
+</mapper>

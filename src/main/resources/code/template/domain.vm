@@ -1,0 +1,25 @@
+package com.${rootModel}.domain.${modelName};
+
+#foreach($row in $imports)
+    $row
+#end
+
+import com.jessen.core.mybatis.AbstractDomain;
+
+public class ${className}Domain extends AbstractDomain {
+
+
+#foreach($row in $col_list)
+    //${row.column_comment}
+    private ${row.col_type} ${row.col_field};
+#end
+#foreach($row in $col_list)
+    public ${row.col_type} get${row.col_field_fun}(){
+        return ${row.col_field};
+    }
+    public void set${row.col_field_fun}($row.col_type $row.col_field){
+        ${row.col_field} = ${row.col_field};
+    }
+#end
+
+}

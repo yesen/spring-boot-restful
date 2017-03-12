@@ -1,0 +1,34 @@
+package com.${rootModel}.entity.${modelName};
+
+#foreach($row in $imports)
+    $row
+#end
+
+import com.jessen.core.mybatis.AbstractEntity;
+
+public class ${className}Entity extends AbstractEntity<Long> {
+
+
+#foreach($row in $col_list)
+    //${row.column_comment}
+    private ${row.col_type} ${row.col_field};
+#end
+#foreach($row in $col_list)
+    public ${row.col_type} get${row.col_field_fun}(){
+        return ${row.col_field};
+    }
+    public void set${row.col_field_fun}($row.col_type $row.col_field){
+        ${row.col_field} = ${row.col_field};
+    }
+#end
+#foreach($row in $col_list)
+    #if(${row.column_key} == 'PRI')
+        @Override
+        protected Long getPk() {
+        return ${row.col_field};
+        }
+    #end
+#end
+
+
+}

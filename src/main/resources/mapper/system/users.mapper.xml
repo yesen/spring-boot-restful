@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jessen.system.dao.impl.UsersDaoImpl">
+    <resultMap id="usersResultMap" type="com.jessen.system.entity.UsersEntity">
+        <id property="id" column="id"/>
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="hashPassword" column="hash_password"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`
+                                                        ,`name`
+                                                ,`password`
+                                                ,`hash_password`
+                                                ,`create_time`
+                        </sql>
+
+    <select id="findAll" resultMap="usersResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sys_users
+    </select>
+
+    <select id="find" resultMap="usersResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        sys_users
+        where
+        `id` = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.jessen.system.entity.UsersEntity">
+        insert into sys_users(
+        `id`
+        <if test="name != null">
+            ,`name`
+        </if>
+        <if test="password != null">
+            ,`password`
+        </if>
+        <if test="hashPassword != null">
+            ,`hash_password`
+        </if>
+        <if test="createTime != null">
+            ,`create_time`
+        </if>
+        ) values(
+        ,#{id}
+        <if test="name != null">
+            ,#{name}
+        </if>
+        <if test="password != null">
+            ,#{password}
+        </if>
+        <if test="hashPassword != null">
+            ,#{hashPassword}
+        </if>
+        <if test="createTime != null">
+            ,#{createTime}
+        </if>
+        )
+    </insert>
+
+    <update id="update" parameterType="com.jessen.system.entity.UsersEntity">
+        update sys_users
+        <set>
+            <if test="name != null">
+                ,#{name}
+            </if>
+            <if test="password != null">
+                ,#{password}
+            </if>
+            <if test="hashPassword != null">
+                ,#{hashPassword}
+            </if>
+            <if test="createTime != null">
+                ,#{createTime}
+            </if>
+        </set>
+        where
+        `id` = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from sys_users
+        where
+                                    `id` = #{id}
+                                                                                                        </delete>
+
+
+</mapper>

@@ -1,0 +1,42 @@
+package com.${rootModel}.controller.${modelName};
+
+import com.${rootModel}.domain.${modelName}.${className}Domain;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+
+/**
+* Created by sen.ye on ${rootTime}.
+*/
+
+@Path("/${lowerClassName}")
+public interface ${className}Resource{
+
+@GET
+@Path("/")
+@Produces(MediaType.APPLICATION_JSON)
+    List<${className}Domain> findAll();
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    ${className}Domain findById(@PathParam("id") Long id);
+
+    @POST
+    @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)//接收
+    @Produces(MediaType.APPLICATION_JSON)//返回
+    ${className}Domain create(final ${className}Domain domain);
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)//接收
+    @Produces(MediaType.APPLICATION_JSON)//返回
+    ${className}Domain update(@PathParam("id") Long id,final ${className}Domain domain);
+
+    @DELETE
+    @Path("/{id}")
+    void delete(@PathParam("id") Long id);
+}
+

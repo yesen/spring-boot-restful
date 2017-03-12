@@ -1,0 +1,25 @@
+package com.${rootModel}.service.${modelName}.impl;
+
+import com.jessen.core.mybatis.AbstractBaseDao;
+import com.${rootModel}.dao.${modelName}.${className}Dao;
+import com.${rootModel}.domain.${modelName}.${className}Domain;
+import com.${rootModel}.entity.${modelName}.${className}Entity;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/**
+* Created by sen.ye on ${rootTime}.
+*/
+@Repository
+public class ${className}ServiceImpl extends AbstractBaseService<${className}Domain,${className}Entity,Long> implements ${className}Service {
+
+private final ${className}Dao ${lowerClassName}Dao;
+
+@Autowired
+public ${className}ServiceImpl(${className}Dao ${lowerClassName}Dao) {
+super(${lowerClassName}Dao);
+this.${lowerClassName}Dao = ${lowerClassName}Dao;
+}
+
+}

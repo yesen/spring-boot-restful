@@ -1,0 +1,11 @@
+package com.${rootModel}.dao.${modelName};
+
+import com.jessen.core.mybatis.BaseDao;
+import com.${rootModel}.entity.${modelName}.${className}Entity;
+
+/**
+* Created by sen.ye on ${rootTime}.
+*/
+public interface ${className}Dao extends BaseDao<${className}Entity,Long>{
+
+}
